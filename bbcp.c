@@ -70,4 +70,3 @@ name_of_file_to_write);
 return 1;
 }
 }
-[CSESTAFF@localhost exp11
