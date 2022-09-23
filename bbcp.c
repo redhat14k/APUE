@@ -26,13 +26,11 @@ int main(int argc, char* argv[]){
 
 /*check if user supplies source file and destination file/directory*/
     if(argc!=3){
-        fprintf(stderr,"error");
-        exit(1);
+        printf("error: %s\n", strerror(errno));
     }
 
     if(argv[1] == argv[2]){
-	 fprint(stderr,"Both strings are same");
-	 exit(1);
+	printf("error: %s\n", strerror(errno));
     }
 /*opens source file in read-only*/
     fin=open(argv[1], O_RDONLY);
@@ -42,17 +40,14 @@ int main(int argc, char* argv[]){
 
 /*check if source file is accessible*/
     if (access(argv[1], R_OK) != 0) {
-		fprintf(stderr, "error");
-        exit(1);
+	printf("error: %s\n", strerror(errno));
     }
 
 /*opens destination file in write-only*/   
     fout=open(argv[2], O_WRONLY | O_CREAT | O_TRUNC | S_IWUSR | S_IRUSR);
     if(fout == -1){
-        fprintf(sterr, "error");
-        exit(1);
+        printf("error: %s\n", strerror(errno));
     }
-
 
     while((len = read(fin,buf,BUF_SIZE)) > 0){
         if(write(fout,buf,len)!=len){
