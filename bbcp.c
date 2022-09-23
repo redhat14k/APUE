@@ -20,9 +20,7 @@
 #define FILE_LIM 200
 
 int main(int argc, char* argv[]){
-
-    FILE *fin;
-    FILE *fout;
+    int fin,fout;
     char buf[BUF_SIZE];
     size_t len;
 
