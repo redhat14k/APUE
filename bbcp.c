@@ -20,7 +20,8 @@
 
 int main(int argc, char* argv[]){
 
-    FILE *fin,*fout;
+    FILE *fin;
+    FILE *fout;
     char buf[BUF_SIZE];
     size_t len;
 
