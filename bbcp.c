@@ -29,7 +29,7 @@ int main(int argc, char* argv[]){
         printf("error: %s\n", strerror(errno));
     }
 
-    if (strcmp(argv[1], argv[2]) == 0) {
+    if (strcmp(argv[1], argv[2]) == 0){
 	printf("Error: %s\n", strerror(errno));
 		exit(1);
 /*opens source file in read-only*/
