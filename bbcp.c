@@ -9,6 +9,7 @@
 #include<libgen.h>
 #include<stdio.h>
 #include<string.h>
+#include<stdlib.h>
 #include<sys/stat.h>
 #include <unistd.h>
 
@@ -27,7 +28,7 @@ int main(int argc, char* argv[]){
 
 /*check if user supplies source file and destination file/directory*/
     if(argc!=3){
-        fprintf(stderr,"error")
+        fprintf(stderr,"error");
         exit(1);
     }
 
@@ -66,7 +67,7 @@ int main(int argc, char* argv[]){
             exit(1);
         }
 
-        exit(0)    
+        exit(0);   
     }
 }
 
