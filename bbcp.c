@@ -9,9 +9,8 @@
 #include<libgen.h>
 #include<stdio.h>
 #include<string.h>
-#include<stdlib.h>
 #include<sys/stat.h>
-#include<unistd.h>
+#include <unistd.h>
 
 /*Buffer size for copying the file*/
 #define BUF_SIZE 131072
@@ -20,7 +19,8 @@
 #define FILE_LIM 200
 
 int main(int argc, char* argv[]){
-    FILE *f1,*f2;
+
+    FILE *fin,*fout;
     char buf[BUF_SIZE];
     size_t len;
 
@@ -31,8 +31,8 @@ int main(int argc, char* argv[]){
     }
 
 /*opens source file in read-only*/
-    f1=open(argv[1], O_RDONLY);
-    if(f1==-1){
+    fin=open(argv[1], O_RDONLY);
+    if(fin==-1){
         exit(1);
     }
 
@@ -43,29 +43,31 @@ int main(int argc, char* argv[]){
     }
 
 /*opens destination file in write-only*/   
-    f2=open(argv[2], O_WRONLY | O_CREAT | O_TRUNC | S_IWUSR | S_IRUSR);
-    if(f2 == -1){
+    fout=open(argv[2], O_WRONLY | O_CREAT | O_TRUNC | S_IWUSR | S_IRUSR);
+    if(fout == -1){
         fprintf(sterrr, "error");
         exit(1);
     }
 
 
-    while((len = read(f1,buf,BUF_SIZE)) > 0){
-        if(write(f2,buf,len)!=len){
+    while((len = read(fin,buf,BUF_SIZE)) > 0){
+        if(write(fout,buf,len)!=len){
             exit(1);
         }
-        close(f1);
-        close(f2);
+        close(fin);
+        close(fout);
 
-        if(close(f1) == -1){
+        if(close(fin) == -1){
             exit(1);   
         }
 
-        if(close(f2) == -1){
+        if(close(fout) == -1){
             exit(1);
         }
 
         exit(0)    
     }
 }
+
+
 
