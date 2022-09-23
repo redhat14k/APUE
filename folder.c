@@ -1,45 +1,45 @@
-#include <stdio.h>
-#include <fcntl.h>
-#include <stdlib.h>
-#include <unistd.h>
+* program to copy data from one file to another file*/
 
-int main(int argn, char * argv[]) {
+#include<studio.h>
 
-    int src_fd, dst_fd, n, err;
-    unsigned char buffer[4096];
-    char * src_path, dst_path;
+#include<conio.h>
 
-    // Assume that the program takes two arguments the source path followed
-    // by the destination path.
+void main()
 
-    if (argn != 3) {
-        printf("Wrong argument count.\n");
-        exit(1);
-    }
+{
 
-    src_path = argv[1];
-    dst_path = argv[2];
+FILE *fp1,*fp2;
 
-    src_fd = open(src_path, O_RDONLY);
-    dst_fd = open(dst_path, O_CREAT | O_WRONLY);
+char ch;
 
-    while (1) {
-        err = read(src_fd, buffer, 4096);
-        if (err == -1) {
-            printf("Error reading file.\n");
-            exit(1);
-        }
-        n = err;
+clrscr();
 
-        if (n == 0) break;
+fp1=fopen(“mslifelineway.c”, “r”);
 
-        err = write(dst_fd, buffer, n);
-        if (err == -1) {
-            printf("Error writing to file.\n");
-            exit(1);
-        }
-    }
+fp2=fopen(“bakait.c”, “w”);
 
-    close(src_fd);
-    close(dst_fd);
+while(1)
+
+{
+
+ch=fgetc(fp1);
+
+if(ch=EOF)
+
+break;
+
+else
+
+putc(ch,fp2);
+
+}
+
+printf(“\nFile copied successfully!”);
+
+fclose(fp1);
+
+fclose(fp2);
+
+getch();
+
 }
