@@ -30,6 +30,10 @@ int main(int argc, char* argv[]){
         exit(1);
     }
 
+    if(argv[1] == argv[2]){
+	 fprint(stderr,"Both strings are same");
+	 exit(1);
+    }
 /*opens source file in read-only*/
     fin=open(argv[1], O_RDONLY);
     if(fin==-1){
