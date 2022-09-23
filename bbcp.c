@@ -26,7 +26,7 @@ int main(int argc, char* argv[]){
 
 /*check if user supplies source file and destination file/directory*/
     if(argc!=3){
-        printf("error: %s\n", strerror(errno));
+        printf("error: %s\n", strerror(2));
 	exit(1);
     }
 
@@ -43,7 +43,7 @@ int main(int argc, char* argv[]){
 
 /*check if source file is accessible*/
     if (access(argv[1], R_OK) != 0) {
-	printf("error: %s\n", strerror(errno));
+	printf("error: %s\n", strerror(2));
     }
 
 /*opens destination file in write-only*/   
