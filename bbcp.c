@@ -45,7 +45,7 @@ int main(int argc, char* argv[]){
 /*opens destination file in write-only*/   
     fout=open(argv[2], O_WRONLY | O_CREAT | O_TRUNC | S_IWUSR | S_IRUSR);
     if(fout == -1){
-        fprintf(sterrr, "error");
+        fprintf(sterr, "error");
         exit(1);
     }
 
