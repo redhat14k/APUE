@@ -8,7 +8,7 @@
 #include<fcntl.h>
 #include<libgen.h>
 #include<stdio.h>
-#include<string.sh>
+#include<string.h>
 #include<sys/stat.h>
 #include <unistd.h>
 
@@ -18,8 +18,7 @@
 /*Limit set for file*/
 #define FILE_LIM 200
 
-int main{int argc, char* argv[]}
-{
+int main(int argc, char* argv[]){
     FILE *f1,*f2;
     char buf[BUF_SIZE];
     size_t len;
