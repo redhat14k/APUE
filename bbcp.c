@@ -57,11 +57,11 @@ int main(int argc, char* argv[]){
         close(f1);
         close(f2);
 
-        if(close(f1)) == -1){
+        if(close(f1) == -1){
             exit(1);   
         }
 
-        if(close(f2)) == -1){
+        if(close(f2) == -1){
             exit(1);
         }
 
