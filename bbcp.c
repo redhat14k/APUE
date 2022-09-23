@@ -27,11 +27,14 @@ int main(int argc, char* argv[]){
 /*check if user supplies source file and destination file/directory*/
     if(argc!=3){
         printf("error: %s\n", strerror(errno));
+	exit(1);
     }
 
     if (strcmp(argv[1], argv[2]) == 0){
 	printf("Error: %s\n", strerror(errno));
-		exit(1);
+	exit(1);
+    }
+	    
 /*opens source file in read-only*/
     fin=open(argv[1], O_RDONLY);
     if(fin==-1){
