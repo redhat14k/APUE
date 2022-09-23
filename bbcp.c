@@ -52,10 +52,6 @@ int main(int argc, char* argv[]){
         printf("error: %s\n", strerror(errno));
     }
 	
-    if(S_ISDIR(buf.st_mode)) {
-		strcat(argv[2],"/");
-		strcat(argv[2],basename(strdup(argv[1])));
-	}
     while((len = read(fin,buf,BUF_SIZE)) > 0){
         if(write(fout,buf,len)!=len){
             exit(1);
