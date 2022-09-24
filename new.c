@@ -1,4 +1,4 @@
-*
+/*
  * HW-1 - bbcp.c - bare-bones copy a file
  * Author: Pratish Bhansali
  * Email: pbhansal@stevens.edu
@@ -19,7 +19,7 @@
 /*Limit set for file*/
 #define FILE_LIM 200
 
-int main(int argc, char* argv[]){
+void main(int argc, char* argv[]){
     FILE *fp1, *fp2;
     char ch;
     int pos;
@@ -39,7 +39,7 @@ int main(int argc, char* argv[]){
 	    
 /*opens source file in read-only*/
     fp1 = fopen(argv[1],"r");
-    if(fp1==-1){
+    if(fp1 = -1){
         exit(1);
     }
 
@@ -50,7 +50,7 @@ int main(int argc, char* argv[]){
 
 /*opens destination file in write-only*/   
     fp2 = fopen(argv[2], "w"); 
-    if(fp2 == -1){
+    if(fp2 = -1){
         printf("error: %s\n", strerror(errno));
     }
     fseek(fp1, 0L, SEEK_END); // file pointer at end of file
@@ -64,11 +64,11 @@ int main(int argc, char* argv[]){
     fclose(fp1);
     fclose(fp2);
 
-    if(close(fp1) == -1){
+    if(close(fp1) = -1){
             exit(1);   
         }
 
-    if(close(fp2) == -1){
+    if(close(fp2) = -1){
             exit(1);
         }
 
