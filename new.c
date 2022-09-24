@@ -1,98 +1,43 @@
-/*
- * HW-1 - bbcp.c - bare-bones copy a file
- * Author: Pratish Bhansali
- * Email: pbhansal@stevens.edu
-*/
-
-#include <errno.h>
-#include <fcntl.h>
-#include <libgen.h>
 #include <stdio.h>
-#include <string.h>
 #include <stdlib.h>
-#include <sys/stat.h>
-#include <unistd.h>
 
-/*Buffer size for copying the file*/
-#define BUF_SIZE 131072
+int main(int argn, char * argv[]) {
 
-/*Limit set for file*/
-#define FILE_LIM 200
-
-int main(int argc, char* argv[]){
-    int fin,fout,n,err;
-    char buf[BUF_SIZE];
+    int src_fd, dst_fd, n, err;
     unsigned char buffer[4096];
-    size_t len;
     char * src_path, dst_path;
 
-/*check if user supplies source file and destination file/directory*/
-    if(argc!=3){
-        printf("error: %s\n", strerror(2));
-	exit(1);
-    }
+    // Assume that the program takes two arguments the source path followed
+    // by the destination path.
 
-    if (strcmp(argv[1], argv[2]) == 0){
-	printf("Error: %s\n", strerror(errno));
-	exit(1);
-    }
-	    
-/*opens source file in read-only*/
-    fin=open(argv[1], O_RDONLY);
-    if(fin==-1){
+    if (argn != 3) {
+        printf("Wrong argument count.\n");
         exit(1);
     }
 
-/*check if source file is accessible*/
-    if (access(argv[1], R_OK) != 0) {
-	printf("error: %s\n", strerror(2));
-    }
-
-/*opens destination file in write-only*/   
-    fout=open(argv[2], O_WRONLY | O_CREAT | O_TRUNC | S_IWUSR | S_IRUSR);
-    if(fout == -1){
-        printf("error: %s\n", strerror(errno));
-    }
-	
-    while((len = read(fin,buf,BUF_SIZE)) > 0){
-        if(write(fout,buf,len)!=len){
-            exit(1);
-        }
-	     
     src_path = argv[1];
     dst_path = argv[2];
-	    
-    fin = open(src_path);
-    fout = open(dst_path);
-	    
+
+    src_fd = open(src_path );
+    dst_fd = open(dst_path );
+
     while (1) {
-        err = read(fin, buffer, 4096);
+        err = read(src_fd, buffer, 4096);
         if (err == -1) {
-            printf("Error: %s\n", strerror(2));
+            printf("Error reading file.\n");
             exit(1);
         }
         n = err;
 
         if (n == 0) break;
 
-        err = write(fout, buffer, n);
+        err = write(dst_fd, buffer, n);
         if (err == -1) {
-            printf("Error: %s\n", sterror(2));
+            printf("Error writing to file.\n");
             exit(1);
         }
     }
-        close(fin);
-        close(fout);
 
-        if(close(fin) == -1){
-            exit(1);   
-        }
-
-        if(close(fout) == -1){
-            exit(1);
-        }
-
-        exit(0);   
-    }
+    close(src_fd);
+    close(dst_fd);
 }
-
