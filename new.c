@@ -19,15 +19,15 @@
 /*Limit set for file*/
 #define FILE_LIM 200
 
-void main(int argc, char* argv[]){
-    FILE *fp1, *fp2;
-    char ch;
-    int pos;
+int main(int argc, char* argv[]){
+    int fin,fout,n,err;
     char buf[BUF_SIZE];
+    unsigned char buffer[4096];
     size_t len;
+    char * src_path, dst_path;
 
 /*check if user supplies source file and destination file/directory*/
-    if(!fp1 || !fp2 || argc!==3){
+    if(argc!=3){
         printf("error: %s\n", strerror(2));
 	exit(1);
     }
@@ -38,8 +38,8 @@ void main(int argc, char* argv[]){
     }
 	    
 /*opens source file in read-only*/
-    fp1 = fopen(argv[1],"r");
-    if(fp1 = -1){
+    fin=open(argv[1], O_RDONLY);
+    if(fin==-1){
         exit(1);
     }
 
@@ -49,30 +49,50 @@ void main(int argc, char* argv[]){
     }
 
 /*opens destination file in write-only*/   
-    fp2 = fopen(argv[2], "w"); 
-    if(fp2 = -1){
+    fout=open(argv[2], O_WRONLY | O_CREAT | O_TRUNC | S_IWUSR | S_IRUSR);
+    if(fout == -1){
         printf("error: %s\n", strerror(errno));
     }
-    fseek(fp1, 0L, SEEK_END); // file pointer at end of file
-    pos = ftell(fp1);
-    fseek(fp1, 0L, SEEK_SET); // file pointer set at start
-    while (pos--)
-    {
-        ch = fgetc(fp1);  // copying file character by character
-        fputc(ch, fp2);
-    }    
-    fclose(fp1);
-    fclose(fp2);
+	
+    while((len = read(fin,buf,BUF_SIZE)) > 0){
+        if(write(fout,buf,len)!=len){
+            exit(1);
+        }
+	     
+    src_path = argv[1];
+    dst_path = argv[2];
+	    
+    fin = open(src_path);
+    fout = open(dst_path);
+	    
+    while (1) {
+        err = read(fin, buffer, 4096);
+        if (err == -1) {
+            printf("Error: %s\n", strerror(2));
+            exit(1);
+        }
+        n = err;
 
-    if(close(fp1) = -1){
+        if (n == 0) break;
+
+        err = write(fout, buffer, n);
+        if (err == -1) {
+            printf("Error: %s\n", sterror(2));
+            exit(1);
+        }
+    }
+        close(fin);
+        close(fout);
+
+        if(close(fin) == -1){
             exit(1);   
         }
 
-    if(close(fp2) = -1){
+        if(close(fout) == -1){
             exit(1);
         }
 
         exit(0);   
+    }
 }
-
 
