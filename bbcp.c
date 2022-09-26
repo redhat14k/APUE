@@ -1,7 +1,7 @@
 /*
- * HW-1 - bbcp.c - bare-bones copy a file
- * Author: Devharsh Trivedi
- * Email: dtrived5@stevens.edu
+ * HW-1 - bbcp.c 
+ * Author: Pratish Bhansali
+ * Email: pbhansal@stevens.edu
 */
 
 #include <sys/stat.h>
@@ -74,10 +74,8 @@ int main(int argc, char **argv) {
     strcpy(path_src, argv[1]);
     strcpy(path_dst, argv[2]);
 
-    printf("s:%s\nd:%s", path_src, path_dst);
     resolveLink(path_src);
     resolveLink(path_dst);
-    printf("\n\ns:%s\nd:%s", path_src, path_dst);
 
     if (strcmp(path_src, path_dst) == 0) {
         handleError("Source and Destination are same!");
